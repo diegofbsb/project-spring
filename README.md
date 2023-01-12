@@ -14,6 +14,5 @@ MySQL 8
 ```
 SpringBoot 2.7.7
 Java 17
-Hibernate
 JPA
 ```
