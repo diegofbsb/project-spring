@@ -1,4 +1,5 @@
 # Projeto LAMPP
+##O projeto é um sistema de cadastro de pessoas com alguns dados pessoais.
 
 Swagger:
 ```
