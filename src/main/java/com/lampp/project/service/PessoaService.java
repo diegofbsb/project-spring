@@ -1,6 +1,5 @@
 package com.lampp.project.service;
 
-import com.lampp.project.common.utils.MessageResource;
 import com.lampp.project.model.Pessoa;
 import com.lampp.project.repository.PessoaRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -33,5 +33,11 @@ public class PessoaService {
 
     public Pessoa save(Pessoa pessoa) {
         return repository.save(pessoa);
+    }
+
+    public void update(Pessoa pessoa) {
+        Optional<Pessoa> pessoaa = repository.findById(pessoa.getId());
+        pessoaa.ifPresent(pes -> repository.save(pessoa));
+
     }
 }

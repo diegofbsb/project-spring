@@ -14,6 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/pessoa")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 @Tag(name = "Projeto test para LAMPP", description = "Controller para CRUD do cadastro de pessoas.")
 public class PessoaController {
 
@@ -45,7 +46,7 @@ public class PessoaController {
         return pessoaFacade.findById(id);
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Operation(summary = "Deleta as pessoas por id.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Dados encontrados"),
@@ -69,5 +70,18 @@ public class PessoaController {
     @ResponseStatus(HttpStatus.OK)
     public Optional<Pessoa> save(@RequestBody Pessoa pessoa) {
         return Optional.ofNullable(pessoaFacade.save(pessoa));
+    }
+
+    @PutMapping("/update")
+    @Operation(summary = "Atualiza pessoa.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Dados encontrados"),
+                    @ApiResponse(responseCode = "400", description = "Dados informados invalidos"),
+                    @ApiResponse(responseCode = "422", description = "O servico nao ira processar a requisicao"),
+                    @ApiResponse(responseCode = "500", description = "ocorreu um erro inesperado")
+            })
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@RequestBody Pessoa pessoa) {
+        pessoaFacade.update(pessoa);
     }
 }

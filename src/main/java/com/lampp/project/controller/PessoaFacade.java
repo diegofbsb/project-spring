@@ -32,4 +32,8 @@ public class PessoaFacade {
         return pessoaService.save(pessoa);
     }
 
+    public void update(Pessoa pessoa) {
+        pessoaService.update(pessoa);
+    }
+
 }

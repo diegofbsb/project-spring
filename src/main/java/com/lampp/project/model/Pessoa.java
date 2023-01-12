@@ -1,25 +1,20 @@
 package com.lampp.project.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "pessoa")
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class Pessoa {
 
     @Id
@@ -35,8 +30,20 @@ public class Pessoa {
     private Integer telefone;
     @NotNull(message = "O cpf é obrigatório com 11 digitos")
     private Long cpf;
-    @Past
-    @DateTimeFormat(pattern="dd-MM-yyyy")
-    private LocalDate dataNacimento;
+    @JsonFormat(pattern="dd-MM-yyyy")
+    private LocalDate dataNascimento;
     private String observacoes;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Pessoa pessoa = (Pessoa) o;
+        return id != null && Objects.equals(id, pessoa.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
